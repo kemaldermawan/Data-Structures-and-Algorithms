@@ -21,7 +21,7 @@ def validasi(data_input):
 def selection(data, jenis):
     for i in range(len(data)):
         index = i
-        print(f"\nProses iterasi {i + 1}:")
+        print(f"\niterasi ke {i + 1}:")
         for j in range(i + 1, len(data)):
             print(f"  Bandingkan {data[j]} dengan {data[index]}")
             if jenis == 1:  # Naik
@@ -32,7 +32,7 @@ def selection(data, jenis):
                     if data[j].lower() < data[index].lower():
                         index = j
                 elif isinstance(data[j], (int, float)) and isinstance(data[index], str):
-                    index = j  # Angka lebih dulu
+                    index = j
             elif jenis == 2:  # Turun
                 if isinstance(data[j], (int, float)) and isinstance(data[index], (int, float)):
                     if data[j] > data[index]:
@@ -41,7 +41,7 @@ def selection(data, jenis):
                     if data[j].lower() > data[index].lower():
                         index = j
                 elif isinstance(data[j], str) and isinstance(data[index], (int, float)):
-                    index = j  # String lebih dulu
+                    index = j
         if index != i:
             nilai = data[index]
             for k in range(index, i, -1):
@@ -52,27 +52,47 @@ def selection(data, jenis):
         print("-" * 50)
     return data
 
+data = []
+
 while True:
-    masukan = input("Masukkan data yang ingin diurutkan (pisahkan dengan koma): ")
-    data = validasi(masukan)
-    
-    print("Pilih jenis pengurutan:")
-    print("1. Pengurutan naik (angka lalu string)")
-    print("2. Pengurutan turun (string lalu angka)")
-    jenis = input("Masukkan pilihan (1 atau 2): ").strip()
-    while jenis not in ['1', '2']:
-        jenis = input("Pilihan tidak valid. Masukkan 1 atau 2: ").strip()
-    jenis = int(jenis)
+    if not data:
+        masukan = input("Masukkan data awal (pisahkan dengan koma): ")
+        data = validasi(masukan)
 
-    print("\nData sebelum diurutkan:", data)
-    selection(data, jenis)
+    print("\nMenu:")
+    print("1. Urutkan data (Ascending)")
+    print("2. Urutkan data (Descending)")
+    print("3. Tambah data")
+    print("4. Keluar")
+    pilihan = input("Masukkan pilihan: ").strip()
 
-    if jenis == 1:
-        print("Data setelah diurutkan naik:", data)
+    if pilihan in ('1', '2'):
+        jenis = int(pilihan)
+        print("\nData sebelum diurutkan:", data)
+        selection(data, jenis)
+        if jenis == 1:
+            print("Data setelah diurutkan naik:", data)
+        else:
+            print("Data setelah diurutkan turun:", data)
+
+    elif pilihan == '3':
+        tambahan = input("Masukkan data tambahan (pisahkan dengan koma): ")
+        data_baru = validasi(tambahan)
+        data.extend(data_baru)
+        print("Data berhasil ditambahkan.")
+        print("Data saat ini:", data)
+
+    elif pilihan == '4':
+        ulang = input("Apakah Anda ingin mengulang program dari awal? (ya/tidak): ").strip().lower()
+        if ulang == 'ya':
+            data = []
+            continue
+        elif ulang == 'tidak':
+            print("Program selesai. Terima kasih!")
+            break
+        else:
+            print("Pilihan tidak valid. Program akan berakhir.")
+            break
+
     else:
-        print("Data setelah diurutkan turun:", data)
-
-    ulang = input("\nIngin mengulang program? (ya/tidak): ").strip().lower()
-    if ulang != 'ya':
-        print("Terima kasih! Program selesai.")
-        break
+        print("Pilihan tidak valid. Silakan pilih 1, 2, 3, atau 4.")
