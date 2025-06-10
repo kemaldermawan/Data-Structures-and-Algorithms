@@ -36,7 +36,7 @@ def hapus(data):
 def main():
     daftar = []
     while True:
-        print("\nMenu:")
+        print("\n=== Menu ===")
         print("1. Tambah Data")
         print("2. Hapus Data")
         print("3. Tampilkan Data Sesuai Abjad")

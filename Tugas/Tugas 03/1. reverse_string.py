@@ -1,4 +1,4 @@
-class Node:
+class Node: 
     def __init__(self, data):
         self.data = data
         self.next = None
@@ -7,13 +7,11 @@ class LinkedList:
     def __init__(self):
         self.head = None
 
-    # Masukkan karakter di depan linked list (mirip stack push)
     def push(self, data):
         new_node = Node(data)
         new_node.next = self.head
         self.head = new_node
 
-    # Ambil string dari linked list mulai dari head sampai akhir
     def to_string(self):
         result = ""
         current = self.head
@@ -28,9 +26,16 @@ def balik_string(text):
         ll.push(char)
     return ll.to_string()
 
-# --- Program utama ---
 if __name__ == "__main__":
-    teks = input("Masukkan string yang ingin dibalik: ")
-    hasil = balik_string(teks)
-    print("Hasil string dibalik:")
-    print(hasil)
+    print("Masukkan teks. Tekan Enter kosong untuk selesai:\n")
+
+    lines = []
+    while True:
+        line = input()
+        if line == "":
+            break
+        lines.append(line)
+
+    print("\nTeks setelah dibalik:\n")
+    for line in lines:
+        print(balik_string(line))
